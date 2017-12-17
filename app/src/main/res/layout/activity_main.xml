@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- By default, a Binding class will be generated based on the name of the layout file,
+    converting it to Pascal case and suffixing "Binding" to it. If the layout file name is activity_main.xml
+    then the Binding class name will be ActivityMainBinding -->
+    <!-- But If we want we can use a custom name using the 'class' attribute of data element.
+    Here I'm using a custom name 'MyCustomBinding' for the binding class -->
+    <data class="EmployeeBinding">
+
+        <!-- Here the variable defines a property 'employee' which is a JAVA beans and this property
+        is used later in the layout to bind the data to the layout -->
+        <variable name="employee" type="com.debdroid.databindingpractice1.data.Employee"/>
+
+        <!-- Here the variable defines a property 'employeeHandler' which is handler class used to handle
+        events - Method Reference & Listener Binding -->
+        <variable name="employeeDataHandler" type="com.debdroid.databindingpractice1.handler.EmployeeDataHandler" />
+    </data>
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvFirstNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:text="First Name:"/>
+        <TextView
+            android:id="@+id/tvFirstNameVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="@{employee.firstName}"/> <!-- data is bound to the layout field using the defined property -->
+        <TextView
+            android:id="@+id/tvLastNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:text="Last Name:"/>
+        <TextView
+            android:id="@+id/tvLstNameVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="@{employee.lastName}"/> <!-- data is bound to the layout field using the defined property -->
+        <TextView
+            android:id="@+id/tvAgeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:text="Age:"/>
+        <TextView
+            android:id="@+id/tvAgeVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="@{employee.age}"/> <!-- data is bound to the layout field using the defined property -->
+
+        <Button
+            android:id="@+id/btWelcomeToastButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="Show Welcome Toast"
+            android:onClick="@{employeeDataHandler::showWelcomeToast}"/> <!-- Event Handling using Method Reference -->
+        <Button
+            android:id="@+id/btAgeToastButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="Show Age Toast"
+            android:onClick="@{() -> employeeDataHandler.showAge()}"/> <!-- Event Handling using Listener Binding -->
+
+    </LinearLayout>
+</layout>
