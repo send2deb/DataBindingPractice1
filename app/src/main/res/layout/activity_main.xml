@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bindemployee="http://schemas.android.com/tools"> <!-- Application namespace used to pass variable to included layout -->
     <!-- By default, a Binding class will be generated based on the name of the layout file,
     converting it to Pascal case and suffixing "Binding" to it. If the layout file name is activity_main.xml
     then the Binding class name will be ActivityMainBinding -->
@@ -14,48 +15,18 @@
         <!-- Here the variable defines a property 'employeeHandler' which is handler class used to handle
         events - Method Reference & Listener Binding -->
         <variable name="employeeDataHandler" type="com.debdroid.databindingpractice1.handler.EmployeeDataHandler" />
+
     </data>
     <LinearLayout
         android:orientation="vertical"
         android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/tvFirstNameLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:text="First Name:"/>
-        <TextView
-            android:id="@+id/tvFirstNameVal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:text="@{employee.firstName}"/> <!-- data is bound to the layout field using the defined property -->
-        <TextView
-            android:id="@+id/tvLastNameLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:text="Last Name:"/>
-        <TextView
-            android:id="@+id/tvLstNameVal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:text="@{employee.lastName}"/> <!-- data is bound to the layout field using the defined property -->
-        <TextView
-            android:id="@+id/tvAgeLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:text="Age:"/>
-        <TextView
-            android:id="@+id/tvAgeVal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:text="@{employee.age}"/> <!-- data is bound to the layout field using the defined property -->
+
+        <include
+            android:id="@+id/includeBasicEmployeeInfo"
+            layout="@layout/employee_basic_info"
+            bindemployee:emp="@{employee}"/>
 
         <Button
             android:id="@+id/btWelcomeToastButton"
@@ -74,5 +45,22 @@
             android:text="Show Age Toast"
             android:onClick="@{() -> employeeDataHandler.showAge()}"/> <!-- Event Handling using Listener Binding -->
 
+        <Button
+            android:id="@+id/btChangeFirstNameButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="Change First Name to Ajit"
+            android:onClick="@{() -> employeeDataHandler.changeFirstName()}"/> <!-- Event Handling using Listener Binding -->
+
+        <Button
+            android:id="@+id/btSwapisManagerFlagButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="Swap Manager Flag"
+            android:onClick="@{() -> employeeDataHandler.swapManagerFlag()}"/> <!-- Event Handling using Listener Binding -->
     </LinearLayout>
 </layout>

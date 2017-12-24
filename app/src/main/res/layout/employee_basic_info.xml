@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+
+        <!-- Here we need to define the emp variable which is passed from the parent layout-->
+        <variable name="emp" type="com.debdroid.databindingpractice1.data.Employee"/>
+        <!-- Like Java, we can import class inside the data element and the same can be used later in the layout -->
+        <import type="android.view.View" />
+    </data>
+<LinearLayout
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tvFirstNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:text="First Name:"/>
+    <TextView
+        android:id="@+id/tvFirstNameVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="@{emp.firstName}"/> <!-- data is bound to the layout field using the defined property -->
+    <TextView
+        android:id="@+id/tvLastNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:text="Last Name:"/>
+    <TextView
+        android:id="@+id/tvLstNameVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="@{emp.lastName}"/> <!-- data is bound to the layout field using the defined property -->
+    <TextView
+        android:id="@+id/tvAgeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:text="Age:"/>
+    <TextView
+        android:id="@+id/tvAgeVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="@{emp.age}"/> <!-- data is bound to the layout field using the defined property -->
+    <TextView
+        android:id="@+id/tvManagerLabel"
+        android:text="Designation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="@{emp.isManager ? View.VISIBLE : View.GONE}"/>
+    <TextView
+        android:id="@+id/tvManagerVal"
+        android:text="Manager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@{@bool/orientation_portrait ? @dimen/portrait_padding : @dimen/landscape_padding}"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="@{emp.isManager ? View.VISIBLE : View.GONE}"/>
+</LinearLayout>
+</layout>

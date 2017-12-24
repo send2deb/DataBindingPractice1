@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.debdroid.databindingpractice1.data.Employee;
 import com.debdroid.databindingpractice1.databinding.EmployeeBinding;
 import com.debdroid.databindingpractice1.handler.EmployeeDataHandler;
+import com.debdroid.databindingpractice1.handler.EmployeeDataHandlerObservableObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         EmployeeBinding employeeBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         //Create a new employee
-        Employee employee = new Employee("Rakesh", "Sharma", 36);
+        Employee employee = new Employee("Rakesh", "Sharma", 36, true);
 
         //Create a new instance of handler class
         EmployeeDataHandler employeeDataHandler = new EmployeeDataHandler(employee, this);
@@ -26,13 +27,16 @@ public class MainActivity extends AppCompatActivity {
         //Set the Employee object for 'employee' property in XML
         employeeBinding.setEmployee(employee);
 
-        //Set the EmployeeDataHandler for 'employeeDataHandler' property in XML
+        //Set the EmployeeDataHandlerObservableObject for 'employeeDataHandler' property in XML
         employeeBinding.setEmployeeDataHandler(employeeDataHandler);
 
         //Using Data Binding we can access the view without findViewById
         //Let's change the color of the Button's text
         employeeBinding.btWelcomeToastButton.setTextColor(getResources().getColor(R.color.colorAccent));
         employeeBinding.btAgeToastButton.setTextColor(getResources().getColor(R.color.colorAccent));
+
+        //To access view which is part of include layout, the <include> must have an id
+        employeeBinding.includeBasicEmployeeInfo.tvManagerVal.setAllCaps(true);
     }
 
 }

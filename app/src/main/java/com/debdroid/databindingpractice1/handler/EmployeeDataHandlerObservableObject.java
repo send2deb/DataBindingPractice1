@@ -8,15 +8,14 @@ import com.debdroid.databindingpractice1.data.Employee;
 import com.debdroid.databindingpractice1.data.EmployeeObservableObject;
 
 /**
- * Created by debashispaul on 24/12/2017.
+ * Created by debashispaul on 15/12/2017.
  */
 
-public class EmployeeDataHandler {
-
-    private Employee employee;
+public class EmployeeDataHandlerObservableObject {
+    private EmployeeObservableObject employee;
     private Context context;
 
-    public EmployeeDataHandler(Employee employee, Context context) {
+    public EmployeeDataHandlerObservableObject(EmployeeObservableObject employee, Context context) {
         this.employee = employee;
         this.context = context;
     }
@@ -25,7 +24,7 @@ public class EmployeeDataHandler {
     //It's an event handling with Method Reference. The signature of showWelcomeToast must match
     //with onClick method in onClickListener of the View (i.e. Button)
     public void showWelcomeToast(View view) {
-        Toast.makeText(context, "Hello " + employee.firstName.get() + " " + employee.lastName.get(),
+        Toast.makeText(context, "Hello " + employee.getFirstName() + " " + employee.getLastName(),
                 Toast.LENGTH_LONG).show();
     }
 
@@ -33,20 +32,20 @@ public class EmployeeDataHandler {
     //It's an event handling with Listener Binding. The parameter of the showAge does not needed to be
     //matched with onClick method in onClickListener of the View (i.e. Button) but the return type should
     public void showAge() {
-        Toast.makeText(context, "Age of " + employee.firstName.get() + " is " + employee.age.get(),
+        Toast.makeText(context, "Age of " + employee.getFirstName() + " is " + employee.getAge(),
                 Toast.LENGTH_LONG).show();
     }
 
     public void changeFirstName() {
-        employee.firstName.set("Ajit");
+        employee.setFirstName("Ajit");
     }
 
     public void swapManagerFlag() {
-        if(employee.isManager.get()) {
-            employee.isManager.set(false);
+        if(employee.getIsManager()) {
+            employee.setManager(false);
         } else {
-            employee.isManager.set(true);
+            employee.setManager(true);
         }
     }
-
 }
+
